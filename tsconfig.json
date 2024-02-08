@@ -7,7 +7,9 @@
       "components/*": ["src/components/*"],
       "screens/*": ["src/screens/*"],
       "utils/*": ["src/utils/*"],
-      "redux/*": ["src/redux/*"]
+      "redux/*": ["src/redux/*"],
+      "models/*": ["src/models/*"],
+      "navigations/*": ["src/navigations/*"],
     }
   }
 }
