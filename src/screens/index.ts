@@ -4,3 +4,4 @@ export * from "./HomeScreen";
 export * from "./SearchScreen";
 export * from "./WishListScreen";
 export * from "./ProfilScreen";
+export * from "./CartScreen";

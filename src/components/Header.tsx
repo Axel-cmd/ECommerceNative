@@ -1,5 +1,6 @@
-import { Image, StatusBar, StyleSheet, Text, View } from "react-native"
+import { Image, StatusBar, StyleSheet, TouchableOpacity, View } from "react-native"
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
     showCartIcon: boolean
@@ -7,10 +8,13 @@ type Props = {
 
 export const Header = ({showCartIcon}: Props) => {
 
-    const cartIcon = (showCartIcon &&
-        <Ionicons name="cart-outline" size={20} />    
-    )
+    const navigation = useNavigation();
 
+    const cartIcon = (showCartIcon &&
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')} >
+            <Ionicons name="cart-outline" size={20} />    
+        </TouchableOpacity>
+    )
     return(
         <View style={style.header} >
             <View style={style.container} ></View>
