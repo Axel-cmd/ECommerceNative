@@ -1,6 +1,6 @@
+import { TitleText, ViewWrapper } from "components/index";
 import { auth, fireDB } from "firebase"
 import { useState } from "react"
-import { Text } from "react-native"
 
 export const RegisterScreen = () => {
 
@@ -12,6 +12,9 @@ export const RegisterScreen = () => {
     }
 
     return(
-        <Text>Register</Text>
+        <ViewWrapper>
+            <TitleText label="Inscription" />
+
+        </ViewWrapper>
     )
 }
