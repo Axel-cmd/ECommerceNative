@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux"
 
 import { User } from "models/index";
 import { setSignIn } from "redux/slices";
+import { ViewWrapper } from "components/ViewWrapper";
+import { TitleText } from "components/TitleText";
+import { LoginForm } from "components/forms/LoginForm";
 
 export const LoginScreen = () => {
 
@@ -13,9 +16,9 @@ export const LoginScreen = () => {
     }
 
     return(
-        <>
-            <Text>Login</Text>
-            <Button title="login" onPress={handleLogin} />
-        </>
+        <ViewWrapper>
+            <TitleText label="Connexion" />
+            <LoginForm />
+        </ViewWrapper>
     )
 }
