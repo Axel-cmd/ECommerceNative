@@ -3,7 +3,7 @@ import { CustomTextInput } from "./CustomTextInput";
 import { useState } from "react";
 import { auth } from "firebase";
 import { PasswordInput } from "./PasswordInput";
-// import { TermsAndConditionsCheckbox }  from "./TermsAndConditionsCheckbox";
+import { TermsAndConditionsCheckbox }  from "./TermsAndConditionsCheckbox";
 import { FormButton } from "components/buttons/FormButton";
 import { useNavigation } from "@react-navigation/native";
 import { CheckBox } from 'react-native-elements';
@@ -46,15 +46,8 @@ export const RegisterForm = ({}: Props) => {
             <CustomTextInput placeholder="Email" value={email} setValue={setEmail} />
             <PasswordInput placeholder="Mot de passe" value={password} setValue={setPassword} />
             <PasswordInput placeholder="Confirmer le mot de passe" value={confirmPassword} setValue={setConfirmPassword} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -20, color: 'black' }}>
-                <CheckBox
-                    checked={isChecked}
-                    onPress={handleCheckboxChange}
-                />
-                <View style={{ marginLeft: 0 }}>
-                    <Text style={{ color: 'black' }}>J'accepte les termes et conditions.</Text>
-                </View>
-            </View>
+
+            <TermsAndConditionsCheckbox />
 
             <FormButton title="S'inscrire" onPress={handleSubmit} color="white" backgroundColor="black" />
             <Text style={style.text}>

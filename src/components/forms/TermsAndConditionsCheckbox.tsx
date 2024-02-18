@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
-const TermsAndConditionsCheckbox = () => {
+export const TermsAndConditionsCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -10,16 +10,17 @@ const TermsAndConditionsCheckbox = () => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View style={{ display: 'flex', flexDirection: "row", alignItems: "center", marginLeft: -15 }}>
+    
       <CheckBox
+      style={{padding: 0, margin: 0}}
         checked={isChecked}
         onPress={handleCheckboxChange}
       />
-      <Text style={{ marginLeft: 10 }}>
+      <Text style={{fontSize: 12}} >
         I agree to the terms and conditions.
       </Text>
     </View>
   );
 };
 
-export default TermsAndConditionsCheckbox;
