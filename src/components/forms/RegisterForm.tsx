@@ -1,10 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { CustomTextInput } from "./CustomTextInput";
 import { useState } from "react";
 import { auth } from "firebase";
 import { PasswordInput } from "./PasswordInput";
+// import { TermsAndConditionsCheckbox }  from "./TermsAndConditionsCheckbox";
 import { FormButton } from "components/buttons/FormButton";
 import { useNavigation } from "@react-navigation/native";
+import { CheckBox } from 'react-native-elements';
 
 type Props = {};
 
@@ -26,22 +28,71 @@ export const RegisterForm = ({}: Props) => {
             console.log(result)
         }
     }
+    const [isChecked, setIsChecked] = useState(false);
 
+    const handleCheckboxChange = () => {
+      setIsChecked(!isChecked);
+    };
     return(
         <View style={style.container}>
+           <View style={style.content_name_surname}>
+                <View style={style.inputContainer}>
+                    <CustomTextInput placeholder="Prénom" />
+                </View>
+                <View style={style.inputContainer}>
+                    <CustomTextInput placeholder="Nom"  />
+                </View>
+            </View>
             <CustomTextInput placeholder="Email" value={email} setValue={setEmail} />
             <PasswordInput placeholder="Mot de passe" value={password} setValue={setPassword} />
             <PasswordInput placeholder="Confirmer le mot de passe" value={confirmPassword} setValue={setConfirmPassword} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: -20, color: 'black' }}>
+                <CheckBox
+                    checked={isChecked}
+                    onPress={handleCheckboxChange}
+                />
+                <View style={{ marginLeft: 0 }}>
+                    <Text style={{ color: 'black' }}>J'accepte les termes et conditions.</Text>
+                </View>
+            </View>
 
             <FormButton title="S'inscrire" onPress={handleSubmit} />
-            <FormButton title="Connexion" onPress={() => navigation.navigate('Login')} />
+            <Text style={style.text}>
+                J’ai déjà un compte&nbsp;
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={style.link}>me connecter.</Text>
+                </TouchableOpacity>
+            </Text>
+            {/* <FormButton title="Connexion" onPress={() => navigation.navigate('Login')} /> */}
 
         </View>
     )
 }
 
+
 const style = StyleSheet.create({
     container: {
-        width: "100%",
+        width: "90%",
+        marginTop: 100
+    },
+    content_name_surname: {
+        display: 'flex',
+        flexDirection: 'row',
+        maxWidth: "100%",
+        flexWrap: 'nowrap',
+        justifyContent: 'space-between',
+        alignItems: "center"
+    },
+    inputContainer: {
+        flex: 1,
+        marginRight: 5,
+    },
+    text: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    link: {
+        textDecorationLine: 'underline',
     }
 })

@@ -37,6 +37,7 @@ export const LoginForm = () => {
 
 const style = StyleSheet.create({
     container: {
-        width: '100%'
+        width: '100%',
+        marginTop: 100
     }
 })

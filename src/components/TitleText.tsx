@@ -12,6 +12,6 @@ export const TitleText = ({label}: Props) => {
 
 const style = StyleSheet.create({
     label: {
-        fontSize: 30
+        fontSize: 30,
     }
 })
