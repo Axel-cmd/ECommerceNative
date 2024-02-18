@@ -1,19 +1,20 @@
-import { Button, Text } from "react-native"
-import { useDispatch } from "react-redux"
-import { setSignOut } from "redux/slices"
+import { useEffect } from "react"
+import { Text } from "react-native"
+import { getAllArticles } from "src/api/articles"
 
 export const HomeScreen = () => {
-
-    const dispatch = useDispatch()
-
-    const handleSignOut = () => {
-        dispatch(setSignOut())
+   
+    const fetchArticles =  async () => {
+        let articles = await getAllArticles();
     }
+
+    useEffect(() => {
+        fetchArticles();
+    }, [])
 
     return(
         <>
             <Text>Home</Text>
-            <Button title="Signout" onPress={handleSignOut} />
         </>
     )
 }
