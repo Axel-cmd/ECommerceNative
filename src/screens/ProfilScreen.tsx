@@ -40,7 +40,8 @@ export const ProfilScreen = () => {
                 <Button title="Signout" onPress={handleSignOut} />
                 <View style={style.content_name_surname}>
                     <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Prénom" value={user.firstname} />
+                        <CustomTextInput placeholder="Prénom" value={user.firstname} 
+                        />
                     </View>
                     <View style={style.inputContainer}>
                         <CustomTextInput placeholder="Nom" value={user.lastname} />
