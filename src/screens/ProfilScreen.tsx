@@ -4,25 +4,46 @@ import { setSignOut } from "redux/slices"
 import { ViewWrapper } from "components/ViewWrapper";
 import { TitleText } from "components/TitleText";
 import { CustomTextInput } from "components/forms/CustomTextInput";
+import { useEffect, useState } from "react";
+import { auth } from "firebase";
+import { getUserDocumentByUid } from "src/api/users";
+import { User } from "models/user";
 
 export const ProfilScreen = () => {
-
     const dispatch = useDispatch()
+
+    const [user, setUser] = useState<User>(new User())
 
     const handleSignOut = () => {
         dispatch(setSignOut())
     }
+
+    const getUserInformations = async () => {
+        const uid = auth.currentUser?.uid;
+
+        if(uid) {
+            let result = await getUserDocumentByUid(uid);
+            setUser(result)
+        }
+    }
+
+    useEffect(() => {
+        getUserInformations();
+
+
+    }, [])
+
     return(
         <>
             <ViewWrapper>
-                <TitleText label="Connexion" />
+                <TitleText label="Profil" />
                 <Button title="Signout" onPress={handleSignOut} />
                 <View style={style.content_name_surname}>
                     <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Prénom"  />
+                        <CustomTextInput placeholder="Prénom" value={user.firstname} />
                     </View>
                     <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Nom"  />
+                        <CustomTextInput placeholder="Nom" value={user.lastname} />
                     </View>
                 </View>
                 {/* <CustomTextInput placeholder="Email" value={email} setValue={setEmail} /> */}

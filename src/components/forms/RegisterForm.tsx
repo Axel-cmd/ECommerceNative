@@ -13,6 +13,8 @@ export const RegisterForm = ({}: Props) => {
 
     const navigation = useNavigation();
 
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
