@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
-export const TermsAndConditionsCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
+type Props = {
+  value: boolean,
+  setValue: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
+export const TermsAndConditionsCheckbox = ({ setValue, value }: Props) => {
   return (
     <View style={{ display: 'flex', flexDirection: "row", alignItems: "center", marginLeft: -15 }}>
     
       <CheckBox
       style={{padding: 0, margin: 0}}
-        checked={isChecked}
-        onPress={handleCheckboxChange}
+        checked={value}
+        onPress={() => setValue(!value)}
       />
       <Text style={{fontSize: 12}} >
         I agree to the terms and conditions.

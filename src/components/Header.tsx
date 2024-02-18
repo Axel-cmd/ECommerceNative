@@ -33,6 +33,7 @@ const style = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 10 + (StatusBar.currentHeight ?? 0),
         paddingBottom: 10,
+        zIndex: 1000
     },
     container: {
         width: 20
