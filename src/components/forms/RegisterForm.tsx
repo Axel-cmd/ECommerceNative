@@ -56,14 +56,13 @@ export const RegisterForm = ({}: Props) => {
                 </View>
             </View>
 
-            <FormButton title="S'inscrire" onPress={handleSubmit} />
+            <FormButton title="S'inscrire" onPress={handleSubmit} color="white" backgroundColor="black" />
             <Text style={style.text}>
                 J’ai déjà un compte&nbsp;
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text style={style.link}>me connecter.</Text>
                 </TouchableOpacity>
             </Text>
-            {/* <FormButton title="Connexion" onPress={() => navigation.navigate('Login')} /> */}
 
         </View>
     )
@@ -72,7 +71,7 @@ export const RegisterForm = ({}: Props) => {
 
 const style = StyleSheet.create({
     container: {
-        width: "90%",
+        width: "100%",
         marginTop: 100
     },
     content_name_surname: {

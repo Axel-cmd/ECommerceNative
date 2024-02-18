@@ -25,7 +25,7 @@ export const ProfilScreen = () => {
                         <CustomTextInput placeholder="Nom"  />
                     </View>
                 </View>
-                <CustomTextInput placeholder="Email" value={email} setValue={setEmail} />
+                {/* <CustomTextInput placeholder="Email" value={email} setValue={setEmail} /> */}
             </ViewWrapper>
         </>
 

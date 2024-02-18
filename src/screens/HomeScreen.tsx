@@ -6,6 +6,7 @@ export const HomeScreen = () => {
    
     const fetchArticles =  async () => {
         let articles = await getAllArticles();
+        console.log(articles)
     }
 
     useEffect(() => {

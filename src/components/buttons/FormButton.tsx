@@ -1,17 +1,18 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     title: string,
     onPress: () => void,
-    color?: string
+    color?: string,
+    backgroundColor?: string
 }
 
-export const FormButton = ({ color, title, onPress }: Props) => {
+export const FormButton = ({ color, backgroundColor, title, onPress }: Props) => {
     return (
-        <View style={styles.buttonContainer}>
-            <Button title={title} onPress={onPress} color="white" />
-        </View>
+        <Pressable onPress={onPress} style={{...styles.buttonContainer, backgroundColor}} >
+            <Text style={{...styles.buttonText, color}} >{title}</Text>
+        </Pressable>
     )
 }
 
@@ -23,5 +24,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         borderRadius: 8,
         marginTop: 10
+    },
+    buttonText: {
+        width: "100%", 
+        textAlign: "center",
+        color: 'white'
     }
 });
