@@ -1,5 +1,28 @@
 import { fireDB } from "firebase";
-import { User } from "models/user";
+import { DatabaseUser, User } from "models/user";
+import Firebase from "firebase/compat/app"
+
+const user_collection = fireDB.collection("users");
+
+const converter = {
+    toFirestore: (data: User): DatabaseUser => ({
+        firstname: data.firstname,
+        lastname: data.lastname,
+        cart: data.cart,
+        wishes: data.wishes,
+        user_id: data.id
+    }),
+    fromFirestore: (snap: Firebase.firestore.QueryDocumentSnapshot): User => {
+        const data = snap.data() as DatabaseUser;
+        return {
+            id: snap.id,
+            firstname: data.firstname,
+            wishes: data.wishes,
+            cart: data.cart,
+            lastname: data.lastname
+        }
+    }
+}
 
 /**
  * Récupérer les informations d'un utilisateur grâce à son uid
@@ -7,13 +30,17 @@ import { User } from "models/user";
  * @returns 
  */
 export async function getUserDocumentByUid(id: string): Promise<User> {
-    const snapshot = await fireDB.collection('users')
-        .where("user_id", "==", id).get();
+    const snapshot = await user_collection
+    .where("user_id", "==", id)
+    .withConverter(converter).get();
 
-    const data = snapshot.docs.map( doc => ({id: doc.id, ...doc.data()}))
+    const data = snapshot.docs.map( doc => doc.data()); 
 
-    const user = new User();
-    user.loadFromJson(data[0])
+    return data[0];
+}
 
-    return user;
+export async function postUserDocument(user: User) {
+    const snapshot = await user_collection.withConverter(converter).add(user);
+
+    console.log(snapshot)
 }

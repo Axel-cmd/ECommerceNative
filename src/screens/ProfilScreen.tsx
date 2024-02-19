@@ -12,7 +12,13 @@ import { User } from "models/user";
 export const ProfilScreen = () => {
     const dispatch = useDispatch()
 
-    const [user, setUser] = useState<User>(new User())
+    const [user, setUser] = useState<User>({
+        cart: [],
+        firstname: "",
+        id: "",
+        lastname: "",
+        wishes: []
+    })
 
     const handleSignOut = () => {
         dispatch(setSignOut())
@@ -24,6 +30,7 @@ export const ProfilScreen = () => {
         if(uid) {
             let result = await getUserDocumentByUid(uid);
             setUser(result)
+            console.log(result)
         }
     }
 

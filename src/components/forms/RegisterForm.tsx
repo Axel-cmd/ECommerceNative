@@ -6,6 +6,7 @@ import { PasswordInput } from "./PasswordInput";
 import { TermsAndConditionsCheckbox }  from "./TermsAndConditionsCheckbox";
 import { FormButton } from "components/buttons/FormButton";
 import { useNavigation } from "@react-navigation/native";
+import { postUserDocument } from "src/api/users";
 
 type Props = {};
 
@@ -28,7 +29,17 @@ export const RegisterForm = ({}: Props) => {
             confirmPassword === password
         ){
             const result = await auth.createUserWithEmailAndPassword(email, password);
-            console.log(result)
+            
+            if(result.user?.uid) {
+                await postUserDocument({
+                    id: result.user.uid,
+                    firstname: firstname,
+                    lastname: lastname,
+                    cart: [],
+                    wishes: []
+                })
+            }
+
         }
     }
 
@@ -36,10 +47,10 @@ export const RegisterForm = ({}: Props) => {
         <View style={style.container}>
            <View style={style.content_name_surname}>
                 <View style={style.inputContainer}>
-                    <CustomTextInput placeholder="Prénom" />
+                    <CustomTextInput placeholder="Prénom" value={firstname} setValue={setFirstname} />
                 </View>
                 <View style={style.inputContainer}>
-                    <CustomTextInput placeholder="Nom"  />
+                    <CustomTextInput placeholder="Nom" value={lastname} setValue={setLastname} />
                 </View>
             </View>
             <CustomTextInput placeholder="Email" value={email} setValue={setEmail} />

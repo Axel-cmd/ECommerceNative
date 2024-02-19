@@ -1,17 +1,16 @@
 
+interface CommonUserModel {
+    firstname: string;
+    lastname: string;
+    cart: string[];
+    wishes: string[];
+}
 
-export class User {
+export interface DatabaseUser extends CommonUserModel {
+    user_id: string;
+    
+}
 
-    public firstname: string;
-    public lastname: string;
-
-    constructor(firstname: string = "", name: string = "") {
-        this.firstname = firstname;
-        this.lastname = name;
-    }
-
-    loadFromJson(json: any) {
-        Object.assign(this, json)
-    }
-
+export interface User extends CommonUserModel {
+    id: string
 }
