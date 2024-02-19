@@ -8,9 +8,9 @@ interface CommonUserModel {
 
 export interface DatabaseUser extends CommonUserModel {
     user_id: string;
-    
 }
 
 export interface User extends CommonUserModel {
-    id: string
+    id: string;
+    document_id: string;
 }

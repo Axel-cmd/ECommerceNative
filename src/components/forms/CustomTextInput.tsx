@@ -3,7 +3,7 @@ import { StyleSheet, TextInput } from "react-native"
 type Props = {
     placeholder: string,
     value: string,
-    setValue: React.Dispatch<React.SetStateAction<string>>
+    setValue: (value: string) => void
 }
 
 export const CustomTextInput = ({placeholder, value, setValue}: Props) => {

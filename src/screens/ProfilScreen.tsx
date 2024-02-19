@@ -8,16 +8,20 @@ import { useEffect, useState } from "react";
 import { auth } from "firebase";
 import { getUserDocumentByUid } from "src/api/users";
 import { User } from "models/user";
+import { FormButton } from "components/index";
 
 export const ProfilScreen = () => {
     const dispatch = useDispatch()
+
+    const [userEmail, setUserEmail] = useState("");
 
     const [user, setUser] = useState<User>({
         cart: [],
         firstname: "",
         id: "",
         lastname: "",
-        wishes: []
+        wishes: [],
+        document_id: ''
     })
 
     const handleSignOut = () => {
@@ -26,6 +30,10 @@ export const ProfilScreen = () => {
 
     const getUserInformations = async () => {
         const uid = auth.currentUser?.uid;
+        const email = auth.currentUser?.email
+        if(email) {
+            setUserEmail(email)
+        }
 
         if(uid) {
             let result = await getUserDocumentByUid(uid);
@@ -44,17 +52,22 @@ export const ProfilScreen = () => {
         <>
             <ViewWrapper>
                 <TitleText label="Profil" />
-                <Button title="Signout" onPress={handleSignOut} />
                 <View style={style.content_name_surname}>
                     <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Prénom" value={user.firstname} 
+                        <CustomTextInput placeholder="Prénom" value={user.firstname} setValue={(value) => setUser({...user, firstname: value})}
                         />
                     </View>
                     <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Nom" value={user.lastname} />
+                        <CustomTextInput placeholder="Nom" value={user.lastname} setValue={(value) => setUser({...user, lastname: value})} />
                     </View>
                 </View>
-                {/* <CustomTextInput placeholder="Email" value={email} setValue={setEmail} /> */}
+                <CustomTextInput placeholder="Email" value={userEmail} setValue={setUserEmail} />
+
+                <TitleText label="Localisation" />
+
+
+                <FormButton title="Déconnexion" onPress={handleSignOut} />
+
             </ViewWrapper>
         </>
 

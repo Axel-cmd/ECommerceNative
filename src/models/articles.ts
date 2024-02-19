@@ -1,4 +1,10 @@
 
+export interface DatabaseArticle {
+    default_price: number,
+    name: string,
+    description: string
+}
+
 /**
  * Type pour la liste d'article
  */
@@ -13,13 +19,13 @@ export class Article {
     /** Description de l'article */
     private _description: string;
     /** prix par défaut de l'article (sans réduction/promotion) */
-    private _default_price: number;
+    private _defaultPrice: number;
 
     constructor() {
         this._id            = ""
         this._name          = "";
         this._description   = "";
-        this._default_price = 0
+        this._defaultPrice = 0
     }
 
     //#region GETTER
@@ -36,8 +42,8 @@ export class Article {
         return this._description
     }
     
-    public get default_price() : number {
-        return this._default_price;
+    public get defaultPrice() : number {
+        return this._defaultPrice;
     }
     
     //#endregion

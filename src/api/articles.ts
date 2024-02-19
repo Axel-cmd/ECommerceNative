@@ -1,15 +1,32 @@
-import { Article, Articles } from "models/articles";
-import { getAllDocumentFromCollection } from "./request";
+import { Article, Articles, DatabaseArticle } from "models/articles";
+import Firebase from "firebase/compat/app"
+import { fireDB } from "firebase";
 
+const articles_collection = fireDB.collection("articles")
+
+const converter = {
+    toFirestore: (data: Article): DatabaseArticle => ({
+        name: data.name,
+        description: data.description,
+        default_price: data.defaultPrice
+    }),
+    fromFirestore: (snap: Firebase.firestore.QueryDocumentSnapshot): Article => {
+        const data = snap.data() as DatabaseArticle;
+        const article = new Article();
+
+        article.loadFromJson({
+            id: snap.id,
+            ...data
+        })
+
+        return article
+    }
+}
  
 export async function getAllArticles(): Promise<Articles> {
-    const data = await getAllDocumentFromCollection('articles')
+    const data = await articles_collection
+        .withConverter(converter)
+        .get()
 
-    const articles = data.map<Article>( obj => {
-        let article = new Article();
-        article.loadFromJson(obj);
-        return article
-    })
-
-    return articles;
+    return data.docs.map( obj => obj.data())
 }

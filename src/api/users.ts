@@ -15,7 +15,8 @@ const converter = {
     fromFirestore: (snap: Firebase.firestore.QueryDocumentSnapshot): User => {
         const data = snap.data() as DatabaseUser;
         return {
-            id: snap.id,
+            document_id: snap.id,
+            id: data.user_id,
             firstname: data.firstname,
             wishes: data.wishes,
             cart: data.cart,
@@ -39,8 +40,24 @@ export async function getUserDocumentByUid(id: string): Promise<User> {
     return data[0];
 }
 
+/**
+ * Créer un nouvel utilisateur dans la base
+ * @param user 
+ * @returns
+ */
 export async function postUserDocument(user: User) {
     const snapshot = await user_collection.withConverter(converter).add(user);
+    return snapshot.id;
+}
 
-    console.log(snapshot)
+/**
+ * Mettre à jour le document d'un utilisateur
+ * @param user infos de l'utilisateur à update
+ * @returns 
+ */
+export async function updateUserDocument(user: User) {
+    return await user_collection
+        .withConverter(converter)
+        .doc(user.document_id)
+        .update(user);
 }
