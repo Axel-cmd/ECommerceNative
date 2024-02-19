@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { Articles } from "models/article";
+import { Articles } from "models/articles";
 
 const initialState: Articles = []
 
@@ -12,7 +11,7 @@ const cartSlice = createSlice({
             state.push(action.payload)
         },
         removeItemFormCart: (state, action) => {
-            const cart = state.filter((w) => w !== action.payload);
+            const cart = state.filter((w: any) => w !== action.payload);
             return cart;
         }
     }

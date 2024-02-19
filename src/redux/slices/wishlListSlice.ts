@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { Articles } from "models/articles";
 
-import { Articles } from "models/article";
 
 const initialState: Articles = [];
 
