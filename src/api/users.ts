@@ -55,19 +55,6 @@ export async function postUserDocument(user: User) {
  * @param user infos de l'utilisateur à update
  * @returns 
  */
-// export async function updateUserDocument(user: User) {
-//     return await user_collection
-//         .withConverter(converter)
-//         .doc(user.document_id)
-//         .update(user);
-// }
-
-
-/**
- * Mettre à jour le document d'un utilisateur
- * @param user infos de l'utilisateur à update
- * @returns 
- */
 export async function updateUserDocument(update: Partial<DatabaseUser>) {
 
     const snapshot = await user_collection
