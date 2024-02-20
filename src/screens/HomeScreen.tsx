@@ -32,8 +32,8 @@ export const HomeScreen = () => {
             <Text>Home</Text>
 
             { articles.length > 0 
-                && articles.map( (article) => (
-                    <View>
+                && articles.map( (article, index) => (
+                    <View key={index} >
                         <Text>{article.name}</Text>
                         <Button title="ajouté à la wishlist" onPress={() => addToWishList(article)} />
 

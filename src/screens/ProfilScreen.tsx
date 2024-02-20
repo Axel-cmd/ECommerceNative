@@ -9,7 +9,8 @@ import { auth } from "firebase";
 import { getUserDocumentByUid } from "src/api/users";
 import { User } from "models/user";
 import { FormButton } from "components/index";
-import { selectWishList } from "redux/slices/wishlListSlice";
+import { removeItemFormWishList, selectWishList } from "redux/slices/wishlListSlice";
+import { Article } from "models/articles";
 
 export const ProfilScreen = () => {
 
@@ -46,10 +47,12 @@ export const ProfilScreen = () => {
         }
     }
 
+    const deleteElementFromWishList = (articleId: string) => {
+        dispatch(removeItemFormWishList(articleId))
+    }
+
     useEffect(() => {
         getUserInformations();
-
-
     }, [])
 
     return(
@@ -70,8 +73,11 @@ export const ProfilScreen = () => {
                 <TitleText label="Localisation" />
 
                 {
-                    usrArticles.map( (article) => (
-                        <Text>{article}</Text>
+                    usrArticles.map( (article, index) => (
+                        <View key={index} >
+                            <Text>{article}</Text>
+                            <Button title="Supprimer de la liste d'envie" onPress={()=> deleteElementFromWishList(article)} />
+                        </View>
                     ))
                 }
 
