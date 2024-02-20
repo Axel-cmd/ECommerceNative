@@ -8,9 +8,8 @@ import { FormButton } from "components/buttons/FormButton";
 import { useNavigation } from "@react-navigation/native";
 import { postUserDocument } from "src/api/users";
 
-type Props = {};
 
-export const RegisterForm = ({}: Props) => {
+export const RegisterForm = () => {
 
     const navigation = useNavigation();
 
@@ -39,18 +38,23 @@ export const RegisterForm = ({}: Props) => {
                     wishes: [],
                     document_id: ""
                 })
+
             }
 
         }
     }
 
+    const navigateToLoginScreen = () => {
+        navigation.navigate('Login');
+    }
+
     return(
         <View style={style.container}>
            <View style={style.content_name_surname}>
-                <View style={style.inputContainer}>
+                <View style={{marginRight: 2.5, ...style.inputContainer}}>
                     <CustomTextInput placeholder="Prénom" value={firstname} setValue={setFirstname} />
                 </View>
-                <View style={style.inputContainer}>
+                <View style={{marginLeft: 2.5, ...style.inputContainer}}>
                     <CustomTextInput placeholder="Nom" value={lastname} setValue={setLastname} />
                 </View>
             </View>
@@ -61,12 +65,20 @@ export const RegisterForm = ({}: Props) => {
             <TermsAndConditionsCheckbox value={conditionChecked} setValue={setConditionChecked} />
 
             <FormButton title="S'inscrire" onPress={handleSubmit} color="white" backgroundColor="black" />
-            <Text style={style.text}>
-                J’ai déjà un compte&nbsp;
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={style.link}>me connecter.</Text>
+
+            <View style={style.loginLinkContainer} >
+
+                <Text style={style.text}>
+                    J’ai déjà un compte&nbsp;
+                </Text>
+
+                <TouchableOpacity onPress={navigateToLoginScreen}>
+                    <Text style={style.link}>
+                        me connecter.
+                    </Text>
                 </TouchableOpacity>
-            </Text>
+
+            </View>
 
         </View>
     )
@@ -88,14 +100,21 @@ const style = StyleSheet.create({
     },
     inputContainer: {
         flex: 1,
-        marginRight: 5,
+        // marginRight: 5,
+    },
+    loginLinkContainer: {
+        marginTop: 20,
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     text: {
-        fontSize: 16,
+        fontSize: 12,
         textAlign: 'center',
-        marginTop: 20,
     },
     link: {
+        fontSize: 12,
         textDecorationLine: 'underline',
     }
 })
