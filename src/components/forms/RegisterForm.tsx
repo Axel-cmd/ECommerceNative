@@ -36,7 +36,8 @@ export const RegisterForm = ({}: Props) => {
                     firstname: firstname,
                     lastname: lastname,
                     cart: [],
-                    wishes: []
+                    wishes: [],
+                    document_id: ""
                 })
             }
 

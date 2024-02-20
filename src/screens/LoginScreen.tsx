@@ -1,4 +1,4 @@
-import { Button, Text } from "react-native"
+import { Button, StyleSheet, Text, View } from "react-native"
 import { useDispatch } from "react-redux"
 
 import { User } from "models/index";
@@ -18,8 +18,20 @@ export const LoginScreen = () => {
 
     return(
         <ViewWrapper>
-            <TitleText label="Connexion" />
-            <LoginForm />
+            <View style={styles.container} >
+                <TitleText label="Connexion" />
+                <LoginForm />
+            </View>
         </ViewWrapper>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+    }
+})

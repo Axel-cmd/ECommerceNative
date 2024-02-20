@@ -7,20 +7,20 @@ type Props = {
 
 export const ViewWrapper = ({children}: Props) => {
     return (
-        <View style={style.wrapper}>
+        <ScrollView
+            contentContainerStyle={{flexGrow: 1}}
+            style={style.scroll}
+        >
             {children}
-        </View>
+
+        </ScrollView>
     )
 }
 
 const style = StyleSheet.create({
-    wrapper: {
+    scroll: {
         padding: 20,
         width: "100%",
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: "100%"
     }
 })
