@@ -1,4 +1,4 @@
-import { fireDB } from "firebase";
+import { auth, fireDB } from "firebase";
 import { DatabaseUser, User } from "models/user";
 import Firebase from "firebase/compat/app"
 
@@ -55,9 +55,33 @@ export async function postUserDocument(user: User) {
  * @param user infos de l'utilisateur à update
  * @returns 
  */
-export async function updateUserDocument(user: User) {
-    return await user_collection
+// export async function updateUserDocument(user: User) {
+//     return await user_collection
+//         .withConverter(converter)
+//         .doc(user.document_id)
+//         .update(user);
+// }
+
+
+/**
+ * Mettre à jour le document d'un utilisateur
+ * @param user infos de l'utilisateur à update
+ * @returns 
+ */
+export async function updateUserDocument(update: Partial<DatabaseUser>) {
+
+    const snapshot = await user_collection
+        .where("user_id", "==", auth.currentUser?.uid)
         .withConverter(converter)
-        .doc(user.document_id)
-        .update(user);
+        .get()
+
+    const user = snapshot.docs[0].data()
+
+
+    if(user) {
+        console.log("ici", user.document_id)
+        console.log(update)
+        await user_collection.doc(user.document_id)
+            .update(update)
+    }    
 }

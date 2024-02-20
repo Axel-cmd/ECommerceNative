@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 type Props = {
-    children: React.JSX.Element[] | React.JSX.Element
+    children: React.JSX.Element[] | React.JSX.Element | any
 };
 
 export const ViewWrapper = ({children}: Props) => {

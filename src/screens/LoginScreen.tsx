@@ -6,14 +6,15 @@ import { setSignIn } from "redux/slices";
 import { ViewWrapper } from "components/ViewWrapper";
 import { TitleText } from "components/TitleText";
 import { LoginForm } from "components/forms/LoginForm";
+import { useEffect } from "react";
 
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
 
-    const handleLogin = () => {
-        dispatch(setSignIn("Axel"))
-    }
+    // const handleLogin = () => {
+    //     dispatch(setSignIn("Axel"))
+    // }
 
     return(
         <ViewWrapper>

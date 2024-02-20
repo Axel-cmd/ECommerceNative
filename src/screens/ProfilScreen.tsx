@@ -1,5 +1,5 @@
 import { Text, Button, View, StyleSheet } from "react-native"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setSignOut } from "redux/slices"
 import { ViewWrapper } from "components/ViewWrapper";
 import { TitleText } from "components/TitleText";
@@ -9,8 +9,12 @@ import { auth } from "firebase";
 import { getUserDocumentByUid } from "src/api/users";
 import { User } from "models/user";
 import { FormButton } from "components/index";
+import { selectWishList } from "redux/slices/wishlListSlice";
 
 export const ProfilScreen = () => {
+
+    const usrArticles: string[] = useSelector(selectWishList)
+
     const dispatch = useDispatch()
 
     const [userEmail, setUserEmail] = useState("");
@@ -64,6 +68,12 @@ export const ProfilScreen = () => {
                 <CustomTextInput placeholder="Email" value={userEmail} setValue={setUserEmail} />
 
                 <TitleText label="Localisation" />
+
+                {
+                    usrArticles.map( (article) => (
+                        <Text>{article}</Text>
+                    ))
+                }
 
 
                 <FormButton title="Déconnexion" onPress={handleSignOut} />

@@ -6,6 +6,7 @@ import { FormButton } from "components/buttons/FormButton";
 import { auth } from "firebase";
 import { useDispatch } from "react-redux";
 import { setSignIn } from "redux/slices";
+import { loadWishesFromFirestore } from "redux/slices/wishlListSlice";
 
 export const LoginForm = () => {
 
@@ -20,6 +21,7 @@ export const LoginForm = () => {
         auth.signInWithEmailAndPassword(email, password)
             .then( result => {
                 dispatch(setSignIn(result.user?.email))
+                dispatch(loadWishesFromFirestore())
             })
             .catch( (err: any) => {
                 console.log(err)
