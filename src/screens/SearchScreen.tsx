@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-const SearchScreen = () => {
+export const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
@@ -22,7 +22,6 @@ const SearchScreen = () => {
           <Text style={styles.buttonText}>Rechercher</Text>
         </TouchableOpacity>
       </View>
-      {/* Autres composants ou contenus ici */}
     </View>
   );
 };
@@ -61,4 +60,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScreen;
