@@ -2,9 +2,9 @@ import { ArticleList } from "components/ArticleList";
 import { ViewWrapper } from "components/ViewWrapper";
 import { Articles } from "models/articles";
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet  } from "react-native";
+import { Text, View, StyleSheet, ScrollView  } from "react-native";
 import { getAllArticles } from "src/api/articles";
-
+import { TitleHeader } from "components/TitleHeader";
 
 
 export const HomeScreen = () => {
@@ -18,38 +18,31 @@ export const HomeScreen = () => {
     }, [])
 
     return (
-        <ViewWrapper>
+        <ScrollView>
 
             <View style={styles.container}>
-                <Text style={styles.heading}>Bonjour lucas</Text>
+                <TitleHeader label="Bonjour Lucas" />
                 <View>
                     <Text style={styles.title}>Nos nouveautés</Text>
                     <ArticleList articles={articles} />
                     
                 </View>
                 <View>
-                    <Text style={styles.title}>Nos nouveautés</Text>
+                    <Text style={styles.title}>Collection de saision</Text>
                     <ArticleList articles={articles} />
 
                 </View>
             </View>
 
             
-        </ViewWrapper>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    heading: {
-        fontSize: 24,
-        fontWeight: "300",
-        fontFamily: "Barlow",
-        textAlign: "center",
-        marginTop: 30,
-        marginBottom: 50
+        backgroundColor: "#fff"
     },
     title: {
         margin: 10,
