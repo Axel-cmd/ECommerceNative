@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
-const WishListScreen = () => {
+export const WishListScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.row}>
@@ -45,4 +45,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WishListScreen;
