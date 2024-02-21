@@ -4,20 +4,41 @@ import { StyleSheet } from "react-native";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
-import { selectWishList } from "redux/slices/wishlListSlice";
+import { addItemToWishList, removeItemFormWishList, selectWishList } from "redux/slices/wishlListSlice";
+import { updateUserDocument } from "src/api/users";
 
 type Props = {
     article: Article
 }
 
 export const CardArticle = ({article}: Props) => {
-
-    const userWishList: string[] = useSelector(selectWishList)
-
     const dispatch = useDispatch();
 
-    const toggleAddRemoveFromWishlist = () => {
-        
+    // récupérer la liste des envies dans le redux
+    const userWishList: string[] = useSelector(selectWishList)
+
+    /**
+     * Méthode qui permet de faire le toggle d'un article dans la liste d'envies
+     */
+    const toggleAddRemoveFromWishlist = async () => {
+        if(userWishList.includes(article.id)) {
+
+            const wishList = userWishList.filter( (w) => w !== article.id)
+
+            dispatch(removeItemFormWishList(article.id))
+
+            await updateUserDocument({
+                wishes: wishList
+            })
+
+        }
+        else {
+            await updateUserDocument({
+                wishes: [...userWishList, article.id]
+            }).then( () => {
+                dispatch(addItemToWishList(article.id))
+            })
+        }
     }
       
     return (

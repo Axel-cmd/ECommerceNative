@@ -13,17 +13,9 @@ const wishListSlice = createSlice({
         },
         addItemToWishList: (state, action) => {
             state.push(action.payload);
-
-            updateUserDocument({
-                wishes: [...state]
-            })
         },
         removeItemFormWishList: (state, action) => {
             const wishList = state.filter((w) => w !== action.payload);
-
-            updateUserDocument({
-                wishes: [...wishList]
-            })
             return wishList;
         }
     }
