@@ -16,20 +16,9 @@ export const CardArticle = ({article}: Props) => {
 
     const dispatch = useDispatch();
 
-    const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
-
     const toggleAddRemoveFromWishlist = () => {
-        setIsWishlisted(!isWishlisted)
+        
     }
-
-    // à l'initialisation pour savoir si l'objet est dans la wishlist
-    useEffect(() => {
-        console.log(userWishList)
-        const isInWishlist = userWishList.includes(article.id)
-        console.log(isInWishlist)
-        setIsWishlisted(isInWishlist)
-
-    }, [userWishList])
       
     return (
         <View style={styles.articleItem}>
@@ -47,7 +36,7 @@ export const CardArticle = ({article}: Props) => {
                 <CheckBox
                     size={15}
                     containerStyle={styles.heart}
-                    checked={isWishlisted}
+                    checked={userWishList.includes(article.id)}
                     checkedIcon="heart"
                     uncheckedIcon="heart-o"
                     checkedColor="red"

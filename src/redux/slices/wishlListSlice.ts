@@ -1,6 +1,5 @@
-import { createSlice, current } from "@reduxjs/toolkit"
-import { auth } from "firebase";
-import { getUserDocumentByUid, updateUserDocument } from "src/api/users";
+import { createSlice } from "@reduxjs/toolkit"
+import { updateUserDocument } from "src/api/users";
 
 
 const initialState: string[] = [];
@@ -10,7 +9,7 @@ const wishListSlice = createSlice({
     initialState,
     reducers: {
         loadWishesList: (state, action) => {
-            state = action.payload
+            state.push(...action.payload)
         },
         addItemToWishList: (state, action) => {
             state.push(action.payload);
