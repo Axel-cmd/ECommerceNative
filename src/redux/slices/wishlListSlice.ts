@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { updateUserDocument } from "src/api/users";
-
 
 const initialState: string[] = [];
 

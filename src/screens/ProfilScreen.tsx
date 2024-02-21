@@ -72,16 +72,6 @@ export const ProfilScreen = () => {
 
                 <TitleText label="Localisation" />
 
-                {
-                    usrArticles.map( (article, index) => (
-                        <View key={index} >
-                            <Text>{article}</Text>
-                            <Button title="Supprimer de la liste d'envie" onPress={()=> deleteElementFromWishList(article)} />
-                        </View>
-                    ))
-                }
-
-
                 <FormButton title="Déconnexion" onPress={handleSignOut} />
 
             </ViewWrapper>
