@@ -1,16 +1,9 @@
 import { FlatList } from "react-native";
 import { CardArticle } from "./CardArticle";
-
-interface Article {
-    id: string;
-    image: string;
-    collection: string;
-    name: string;
-    default_price: string;
-}
+import { Article, Articles } from "models/articles";
 
 type Props = {
-    articles: Article[]
+    articles: Articles
 };
 
 export const ArticleList = ({articles}: Props) => {

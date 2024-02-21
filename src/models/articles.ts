@@ -68,7 +68,7 @@ export class Article {
             _id: json.id,
             _name: json.name,
             _description: json.description,
-            _default_price: json.default_price,
+            _defaultPrice: json.default_price,
             _image: json.image,
             _collection: json.collection,
         });

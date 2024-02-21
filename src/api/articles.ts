@@ -8,7 +8,9 @@ const converter = {
     toFirestore: (data: Article): DatabaseArticle => ({
         name: data.name,
         description: data.description,
-        default_price: data.defaultPrice
+        default_price: data.defaultPrice,
+        collection: data.collection,
+        image: data.image
     }),
     fromFirestore: (snap: Firebase.firestore.QueryDocumentSnapshot): Article => {
         const data = snap.data() as DatabaseArticle;

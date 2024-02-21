@@ -1,14 +1,6 @@
+import { Article } from "models/articles";
 import { StyleSheet } from "react-native";
 import { Text, TouchableOpacity, View, Image } from "react-native";
-
-interface Article {
-    id: string;
-    image: string;
-    collection: string;
-    name: string;
-    default_price: string;
-}
-
 
 type Props = {
     article: Article
@@ -24,8 +16,8 @@ export const CardArticle = ({article}: Props) => {
             />
             <View style={styles.articleText}>
                 <Text style={styles.collection}>{article.collection}</Text>
-                <Text style={styles.name}>{article.name}</Text>
-                <Text style={styles.price}>{article.default_price}</Text>
+                <Text style={styles.name}>{article.name}</Text> 
+                <Text style={styles.price}>{article.defaultPrice} €</Text>
             </View>
             <TouchableOpacity onPress={() => alert("Added to wishlist")} style={styles.heartContainer}>
                 <Text style={styles.heart}>♥️</Text>
