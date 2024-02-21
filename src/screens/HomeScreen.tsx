@@ -1,6 +1,5 @@
 import { ArticleList } from "components/ArticleList";
 import { TitleHeader } from "components/TitleHeader";
-import { ViewWrapper } from "components/ViewWrapper";
 import { auth } from "firebase";
 import { Articles } from "models/articles";
 import React, { useEffect, useState } from "react";
@@ -9,8 +8,6 @@ import { useDispatch } from "react-redux";
 import { loadWishesList } from "redux/slices/wishlListSlice";
 import { getAllArticles } from "src/api/articles";
 import { getUserDocumentByUid } from "src/api/users";
-
-
 
 export const HomeScreen = () => {
 
