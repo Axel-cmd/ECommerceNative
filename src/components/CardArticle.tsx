@@ -19,7 +19,7 @@ export const CardArticle = ({article}: Props) => {
     return (
         <View style={styles.articleItem}>
             <Image
-                source={{ uri: article.image }}
+                source={{ uri: article.image !== "" ? article.image : undefined }}
                 style={styles.image}
             />
             <View style={styles.articleText}>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         resizeMode: "cover",
         borderRadius: 10,
+        backgroundColor: "lightgrey"
     },
     collection: {
         fontSize: 14,

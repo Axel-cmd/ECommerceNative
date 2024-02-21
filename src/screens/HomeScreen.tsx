@@ -83,8 +83,6 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: "center",
-        // justifyContent: "center",
     },
     heading: {
         fontSize: 24,
