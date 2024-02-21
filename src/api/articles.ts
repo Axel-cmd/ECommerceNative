@@ -32,3 +32,10 @@ export async function getAllArticles(): Promise<Articles> {
 
     return data.docs.map( obj => obj.data())
 }
+
+export async function getManyArticlesById(articlesId: string[]): Promise<Articles> {
+    const data = await articles_collection.withConverter(converter).where(Firebase.firestore.FieldPath.documentId(), 'in', articlesId).get();
+
+
+    return data.docs.map( doc => doc.data());
+}

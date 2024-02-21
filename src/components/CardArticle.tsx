@@ -1,7 +1,6 @@
 import { Article } from "models/articles";
-import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { Text, TouchableOpacity, View, Image } from "react-native";
+import { Text, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToWishList, removeItemFormWishList, selectWishList } from "redux/slices/wishlListSlice";

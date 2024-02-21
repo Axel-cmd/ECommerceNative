@@ -1,17 +1,48 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { CardArticle } from 'components/CardArticle';
+import { TitleText } from 'components/TitleText';
+import { Article, Articles } from 'models/articles';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectWishList } from 'redux/slices/wishlListSlice';
+import { getManyArticlesById } from 'src/api/articles';
 
 export const WishListScreen = () => {
+  const dispatch = useDispatch()
+
+  const userWishList: string[] = useSelector(selectWishList);
+
+  const [wishList, setWishList] = useState<Articles>([])
+
+  useEffect(() => {
+
+    setWishList([]);
+    // récupérer les articles liés l'utilisateur
+    getManyArticlesById(userWishList).then( r => {
+      setWishList(r)
+    })
+
+  }, [userWishList])
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.row}>
+
+      <TitleText label="Liste d'envie" />
+
+      {
+        wishList.map( (article, index) => 
+          <CardArticle key={index} article={article} />
+        )
+      }
+
+      {/* <View style={styles.row}>
         <View style={styles.card}></View>
         <View style={styles.card}></View>
       </View>
       <View style={styles.row}>
         <View style={styles.card}></View>
         <View style={styles.card}></View>
-      </View>
+      </View> */}
       {/* Ajoutez plus de lignes de cartes si nécessaire */}
     </ScrollView>
   );
