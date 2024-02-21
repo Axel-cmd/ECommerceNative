@@ -9,14 +9,8 @@ const wishListSlice = createSlice({
     name: "wishList",
     initialState,
     reducers: {
-        loadWishesFromFirestore: (state) => {
-            if(auth.currentUser?.uid){
-                getUserDocumentByUid(auth.currentUser?.uid)
-                    .then(result => {
-                        state = [...result.wishes]
-                    })
-                    .catch(err => console.error(err))
-            }
+        loadWishesList: (state, action) => {
+            state = action.payload
         },
         addItemToWishList: (state, action) => {
             state.push(action.payload);
@@ -36,7 +30,7 @@ const wishListSlice = createSlice({
     }
 })
 
-export const { loadWishesFromFirestore ,addItemToWishList, removeItemFormWishList } = wishListSlice.actions;
+export const { loadWishesList ,addItemToWishList, removeItemFormWishList } = wishListSlice.actions;
 
 export const selectWishList = (state: any) => state.wishList;
 

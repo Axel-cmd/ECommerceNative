@@ -1,8 +1,10 @@
 import { Article } from "models/articles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
+import { selectWishList } from "redux/slices/wishlListSlice";
 
 type Props = {
     article: Article
@@ -10,11 +12,24 @@ type Props = {
 
 export const CardArticle = ({article}: Props) => {
 
-    const [isWishlisted, setIsWishlisted] = useState<boolean>(false)
+    const userWishList: string[] = useSelector(selectWishList)
+
+    const dispatch = useDispatch();
+
+    const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
 
     const toggleAddRemoveFromWishlist = () => {
         setIsWishlisted(!isWishlisted)
     }
+
+    // à l'initialisation pour savoir si l'objet est dans la wishlist
+    useEffect(() => {
+        console.log(userWishList)
+        const isInWishlist = userWishList.includes(article.id)
+        console.log(isInWishlist)
+        setIsWishlisted(isInWishlist)
+
+    }, [userWishList])
       
     return (
         <View style={styles.articleItem}>

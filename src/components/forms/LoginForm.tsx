@@ -21,7 +21,6 @@ export const LoginForm = () => {
         auth.signInWithEmailAndPassword(email, password)
             .then( result => {
                 dispatch(setSignIn(result.user?.email))
-                dispatch(loadWishesFromFirestore())
             })
             .catch( (err: any) => {
                 console.log(err)
