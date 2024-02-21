@@ -58,7 +58,7 @@ export const ProfilScreen = () => {
     return(
         <>
             <ViewWrapper>
-            <TitleHeader label={"Profil "} />
+            <TitleHeader label={"Profil"} />
                 <View style={style.content_name_surname}>
                     <View style={style.inputContainer}>
                         <CustomTextInput placeholder="Prénom" value={user.firstname} setValue={(value) => setUser({...user, firstname: value})}
@@ -70,7 +70,7 @@ export const ProfilScreen = () => {
                 </View>
                 <CustomTextInput placeholder="Email" value={userEmail} setValue={setUserEmail} />
 
-                <TitleText label="Localisation" />
+                <TitleHeader label={"Localisation"} />
 
                 <FormButton title="Déconnexion" onPress={handleSignOut} />
 
