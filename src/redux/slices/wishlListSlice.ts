@@ -13,8 +13,9 @@ const wishListSlice = createSlice({
             if(auth.currentUser?.uid){
                 getUserDocumentByUid(auth.currentUser?.uid)
                     .then(result => {
-                        state.push(...result.wishes)
+                        state = [...result.wishes]
                     })
+                    .catch(err => console.error(err))
             }
         },
         addItemToWishList: (state, action) => {
