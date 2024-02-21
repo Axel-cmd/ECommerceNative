@@ -44,6 +44,7 @@ export const CardArticle = ({article}: Props) => {
         <View style={styles.articleItem}>
             <Image
                 source={{ uri: article.image !== "" ? article.image : undefined }}
+                //source={ require('../../assets/image1.png') }
                 style={styles.image}
             />
             <View style={styles.articleText}>
@@ -54,7 +55,7 @@ export const CardArticle = ({article}: Props) => {
 
             <View style={styles.heartContainer} >
                 <CheckBox
-                    size={15}
+                    size={18}
                     containerStyle={styles.heart}
                     checked={userWishList.includes(article.id)}
                     checkedIcon="heart"
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         height: 200,
         marginBottom: 10,
         resizeMode: "cover",
-        borderRadius: 10,
+        borderRadius: 20,
         backgroundColor: "lightgrey"
     },
     collection: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     heart: {
-        margin: 5,
+        margin: 10,
         padding: 0
     },
 })
