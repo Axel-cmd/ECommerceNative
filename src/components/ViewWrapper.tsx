@@ -21,6 +21,7 @@ const style = StyleSheet.create({
     scroll: {
         padding: 20,
         width: "100%",
-        height: "100%"
+        height: "100%",
+        backgroundColor: "white"
     }
 })

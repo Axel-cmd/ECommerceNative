@@ -11,7 +11,7 @@ import { User } from "models/user";
 import { FormButton } from "components/index";
 import { removeItemFormWishList, selectWishList } from "redux/slices/wishlListSlice";
 import { Article } from "models/articles";
-
+import { TitleHeader } from "components/TitleHeader"; 
 export const ProfilScreen = () => {
 
     const usrArticles: string[] = useSelector(selectWishList)
@@ -58,7 +58,7 @@ export const ProfilScreen = () => {
     return(
         <>
             <ViewWrapper>
-                <TitleText label="Profil" />
+            <TitleHeader label={"Profil "} />
                 <View style={style.content_name_surname}>
                     <View style={style.inputContainer}>
                         <CustomTextInput placeholder="Prénom" value={user.firstname} setValue={(value) => setUser({...user, firstname: value})}
@@ -83,7 +83,8 @@ export const ProfilScreen = () => {
 const style = StyleSheet.create({
     container: {
         width: "90%",
-        marginTop: 100
+        marginTop: 100,
+        backgroundColor: "#fff"
     },
     content_name_surname: {
         display: 'flex',
