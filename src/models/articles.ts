@@ -2,7 +2,9 @@
 export interface DatabaseArticle {
     default_price: number,
     name: string,
-    description: string
+    description: string;
+    image: string;
+    collection: string;
 }
 
 /**
@@ -20,12 +22,18 @@ export class Article {
     private _description: string;
     /** prix par défaut de l'article (sans réduction/promotion) */
     private _defaultPrice: number;
+    /** Image lié à l'article */
+    private _image: string;
+    /** Collection à laquelle appartient l'article */
+    private _collection: string;
 
     constructor() {
         this._id            = ""
         this._name          = "";
         this._description   = "";
-        this._defaultPrice = 0
+        this._defaultPrice  = 0;
+        this._collection    = "";
+        this._image         = "";
     }
 
     //#region GETTER
@@ -45,7 +53,14 @@ export class Article {
     public get defaultPrice() : number {
         return this._defaultPrice;
     }
-    
+
+    public get image() : string {
+        return this._image;
+    }
+
+    public get collection() : string {
+        return this._collection
+    }
     //#endregion
 
     public loadFromJson(json: any) {
@@ -53,7 +68,9 @@ export class Article {
             _id: json.id,
             _name: json.name,
             _description: json.description,
-            _default_price: json.default_price
+            _default_price: json.default_price,
+            _image: json.image,
+            _collection: json.collection,
         });
     }
 }
