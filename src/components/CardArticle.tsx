@@ -1,12 +1,20 @@
 import { Article } from "models/articles";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Text, TouchableOpacity, View, Image } from "react-native";
+import { CheckBox } from "react-native-elements";
 
 type Props = {
     article: Article
 }
 
 export const CardArticle = ({article}: Props) => {
+
+    const [isWishlisted, setIsWishlisted] = useState<boolean>(false)
+
+    const toggleAddRemoveFromWishlist = () => {
+        setIsWishlisted(!isWishlisted)
+    }
       
     return (
         <View style={styles.articleItem}>
@@ -19,9 +27,19 @@ export const CardArticle = ({article}: Props) => {
                 <Text style={styles.name}>{article.name}</Text> 
                 <Text style={styles.price}>{article.defaultPrice} €</Text>
             </View>
-            <TouchableOpacity onPress={() => alert("Added to wishlist")} style={styles.heartContainer}>
-                <Text style={styles.heart}>♥️</Text>
-            </TouchableOpacity>        
+
+            <View style={styles.heartContainer} >
+                <CheckBox
+                    size={15}
+                    containerStyle={styles.heart}
+                    checked={isWishlisted}
+                    checkedIcon="heart"
+                    uncheckedIcon="heart-o"
+                    checkedColor="red"
+                    onPress={toggleAddRemoveFromWishlist}
+                />
+
+            </View>
         </View>
     )
 }
@@ -67,11 +85,13 @@ const styles = StyleSheet.create({
     },
     heartContainer: {
         position: "absolute",
-        top: 10,
-        right: 10,
-        backgroundColor: "transparent",
+        top: 0,
+        right: 0,
+        margin: 0,
+        padding: 0,
     },
     heart: {
-        fontSize: 24,
+        margin: 5,
+        padding: 0
     },
 })
