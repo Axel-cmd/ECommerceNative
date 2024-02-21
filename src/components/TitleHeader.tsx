@@ -14,7 +14,7 @@ const style = StyleSheet.create({
     heading: {
         fontSize: 24,
         fontWeight: "300",
-        fontFamily: "Barlow",
+        // fontFamily: "Barlow",
         textAlign: "center",
         marginTop: 30,
         marginBottom: 50

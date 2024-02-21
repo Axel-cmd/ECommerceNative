@@ -10,7 +10,7 @@ export const AppNavigator = () => {
     return(
         <Stack.Navigator initialRouteName="BottomNav" screenOptions={{header: () => (<Header showCartIcon={true} />)}} >
             <Stack.Screen name="BottomNav" component={BottomNavigator} />
-            <Stack.Screen name="Cart" component={CartScreen} options={{headerShown: false}} />
+            <Stack.Screen name="Cart" component={CartScreen} />
         </Stack.Navigator>
     )
 }
