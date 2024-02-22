@@ -15,6 +15,9 @@ type Props = {
 export const CardArticle = ({article}: Props) => {
     const dispatch = useDispatch();
 
+    // useState pour l'url de l'image 
+    const [imgUrl, setImgUrl] = useState("")
+
     // récupérer la liste des envies dans le redux
     const userWishList: string[] = useSelector(selectWishList)
 
@@ -43,14 +46,13 @@ export const CardArticle = ({article}: Props) => {
     }
 
 
-    const [image, setImage] = useState("")
 
     useEffect(() => {
 
         storage.ref(article.image).getDownloadURL()
             .then( r => {
                 console.log(r)
-                setImage(r);
+                setImgUrl(r);
 
             })
     }, [])
@@ -58,15 +60,35 @@ export const CardArticle = ({article}: Props) => {
       
     return (
         <View style={styles.articleItem}>
+
             <Image
-                source={ { uri : image }} 
+                source={ { uri : imgUrl }} 
                 style={styles.image}
             />
-            <View style={styles.articleText}>
-                <Text style={styles.collection}>{article.collection}</Text>
-                <Text style={styles.name}>{article.name}</Text> 
-                <Text style={styles.price}>{article.defaultPrice} €</Text>
-            </View>
+
+
+                <View style={styles.articleText}>
+                    <Text style={styles.collection}>{article.collection}</Text>
+                    <Text style={styles.name}>{article.name}</Text> 
+                    <Text style={styles.price}>{article.defaultPrice} €</Text>
+                    
+                </View>
+
+                {/* <CheckBox
+                        containerStyle={{
+                            margin: 5,
+                            padding: 0
+                        }}
+                        size={18}
+                        checked={true}
+                        iconType="ionicon"
+                        checkedIcon="cart"
+                        uncheckedIcon="cart-outline"
+                        checkedColor="black"
+                        onPress={toggleAddRemoveFromWishlist}
+                    /> */}
+
+            
 
             <View style={styles.heartContainer} >
                 <CheckBox
@@ -80,6 +102,9 @@ export const CardArticle = ({article}: Props) => {
                 />
 
             </View>
+
+            
+
         </View>
     )
 }
