@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   productImage: {
     width: '100%',
     height: 300,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   productDetails: {
     padding: 20,
