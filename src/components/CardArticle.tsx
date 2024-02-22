@@ -67,7 +67,7 @@ export const CardArticle = ({article}: Props) => {
             <View style={styles.articleItem}>
 
                 <Image
-                    source={ { uri : imgUrl }} 
+                    source={ { uri : imgUrl != "" ? imgUrl : undefined }} 
                     style={styles.image}
                 />
 
