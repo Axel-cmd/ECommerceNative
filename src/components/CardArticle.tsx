@@ -46,14 +46,13 @@ export const CardArticle = ({article}: Props) => {
     }
 
 
-
+    /**
+     * Récupérer l'image lors de la création du composant
+     */
     useEffect(() => {
-
         storage.ref(article.image).getDownloadURL()
             .then( r => {
-                console.log(r)
                 setImgUrl(r);
-
             })
     }, [])
 

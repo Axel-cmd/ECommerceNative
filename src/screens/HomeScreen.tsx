@@ -9,6 +9,7 @@ import { loadWishesList } from "redux/slices/wishlListSlice";
 import { getAllArticles } from "src/api/articles";
 import { getUserDocumentByUid } from "src/api/users";
 import firebase from "firebase/compat";
+import { ViewWrapper } from "components/ViewWrapper";
 
 export const HomeScreen = () => {
 
@@ -44,7 +45,7 @@ export const HomeScreen = () => {
     }, [])
 
     return (
-        <ScrollView>
+        <ViewWrapper containerStyle={{padding: 0}} >
 
             <View style={styles.container}>
                 <TitleHeader label={"Bonjour " + firstname} />
@@ -61,7 +62,7 @@ export const HomeScreen = () => {
             </View>
 
             
-        </ScrollView>
+        </ViewWrapper>
     );
 }
 

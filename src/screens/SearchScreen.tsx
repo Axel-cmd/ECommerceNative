@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { TitleHeader } from "components/TitleHeader";
 import { Ionicons } from '@expo/vector-icons'; // Importation de Ionicons depuis Expo
+import { ViewWrapper } from 'components/ViewWrapper';
 
 export const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,7 +13,7 @@ export const SearchScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ViewWrapper containerStyle={{paddingVertical: 0}}>
         <TitleHeader label="Rechercher des articles" />
         <View style={styles.searchContainer}>
             <TextInput
@@ -25,16 +26,11 @@ export const SearchScreen = () => {
                 <Ionicons name="search" size={24} color="white" /> 
             </TouchableOpacity>
         </View>
-    </View>
+    </ViewWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: '#fff', // Couleur de fond de l'écran
-  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',

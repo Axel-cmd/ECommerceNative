@@ -1,4 +1,4 @@
-import { Text, Button, View, StyleSheet } from "react-native"
+import { Text, Button, View, StyleSheet, ScrollView } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { setSignOut } from "redux/slices"
 import { ViewWrapper } from "components/ViewWrapper";
@@ -56,34 +56,30 @@ export const ProfilScreen = () => {
     }, [])
 
     return(
-        <>
-            <ViewWrapper>
-            <TitleHeader label={"Profil"} />
-                <View style={style.content_name_surname}>
-                    <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Prénom" value={user.firstname} setValue={(value) => setUser({...user, firstname: value})}
-                        />
-                    </View>
-                    <View style={style.inputContainer}>
-                        <CustomTextInput placeholder="Nom" value={user.lastname} setValue={(value) => setUser({...user, lastname: value})} />
-                    </View>
+        <ViewWrapper containerStyle={{ paddingVertical: 0}} >
+        <TitleHeader label={"Profil"} />
+            <View style={style.content_name_surname}>
+                <View style={style.inputContainer}>
+                    <CustomTextInput placeholder="Prénom" value={user.firstname} setValue={(value) => setUser({...user, firstname: value})}
+                    />
                 </View>
-                <CustomTextInput placeholder="Email" value={userEmail} setValue={setUserEmail} />
+                <View style={style.inputContainer}>
+                    <CustomTextInput placeholder="Nom" value={user.lastname} setValue={(value) => setUser({...user, lastname: value})} />
+                </View>
+            </View>
+            <CustomTextInput placeholder="Email" value={userEmail} setValue={setUserEmail} />
 
-                <TitleHeader label={"Localisation"} />
+            <TitleHeader label={"Localisation"} />
 
-                <FormButton title="Déconnexion" onPress={handleSignOut} />
+            <FormButton title="Déconnexion" onPress={handleSignOut} />
 
-            </ViewWrapper>
-        </>
+        </ViewWrapper>
 
     )
 }
 
 const style = StyleSheet.create({
     container: {
-        width: "90%",
-        marginTop: 100,
         backgroundColor: "#fff"
     },
     content_name_surname: {
