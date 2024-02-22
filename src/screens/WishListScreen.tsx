@@ -9,7 +9,6 @@ import { Articles } from 'models/articles';
 import { TitleHeader } from "components/TitleHeader";
 
 export const WishListScreen = () => {
-  const dispatch = useDispatch();
   const userWishList: string[] = useSelector(selectWishList);
   const [wishList, setWishList] = useState<Articles>([]);
 
@@ -49,7 +48,6 @@ export const WishListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    paddingHorizontal: 10,
     paddingVertical: 20,
     backgroundColor: '#fff',
   },

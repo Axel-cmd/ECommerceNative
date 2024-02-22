@@ -62,11 +62,9 @@ export const CardArticle = ({article}: Props) => {
         <View style={styles.articleItem}>
 
             <Image
-                source={ { uri : imgUrl }} 
+                source={ { uri : imgUrl != '' ? imgUrl : undefined }} 
                 style={styles.image}
             />
-
-
                 <View style={styles.articleText}>
                     <Text style={styles.collection}>{article.collection}</Text>
                     <Text style={styles.name}>{article.name}</Text> 
