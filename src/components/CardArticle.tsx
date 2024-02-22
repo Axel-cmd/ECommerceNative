@@ -1,4 +1,6 @@
+import { storage } from "firebase";
 import { Article } from "models/articles";
+import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Text, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
@@ -39,12 +41,25 @@ export const CardArticle = ({article}: Props) => {
             })
         }
     }
+
+
+    const [image, setImage] = useState("")
+
+    useEffect(() => {
+
+        storage.ref(article.image).getDownloadURL()
+            .then( r => {
+                console.log(r)
+                setImage(r);
+
+            })
+    }, [])
+
       
     return (
         <View style={styles.articleItem}>
             <Image
-                source={{ uri: article.image !== "" ? article.image : undefined }}
-                //source={ require('../../assets/image1.png') }
+                source={ { uri : image }} 
                 style={styles.image}
             />
             <View style={styles.articleText}>

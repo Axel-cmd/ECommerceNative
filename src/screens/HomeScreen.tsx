@@ -1,6 +1,6 @@
 import { ArticleList } from "components/ArticleList";
 import { TitleHeader } from "components/TitleHeader";
-import { auth } from "firebase";
+import { auth, storage } from "firebase";
 import { Articles } from "models/articles";
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView  } from "react-native";
@@ -8,16 +8,21 @@ import { useDispatch } from "react-redux";
 import { loadWishesList } from "redux/slices/wishlListSlice";
 import { getAllArticles } from "src/api/articles";
 import { getUserDocumentByUid } from "src/api/users";
+import firebase from "firebase/compat";
 
 export const HomeScreen = () => {
 
     const dispatch = useDispatch();
 
+    const [image, setImage] = useState<string>("");
     const [firstname, setFirstname] = useState("")
     
     const [articles, setArticles] = useState<Articles>([])
 
     const doAsyncLoading = async () => {
+
+
+
         // récupérer l'utilisateur actuel
         if(auth.currentUser?.uid){
             let user = await getUserDocumentByUid(auth.currentUser?.uid)
@@ -33,6 +38,8 @@ export const HomeScreen = () => {
     }
 
     useEffect(() => {
+
+
         doAsyncLoading();
     }, [])
 
