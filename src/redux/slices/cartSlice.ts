@@ -28,7 +28,7 @@ const cartSlice = createSlice({
             })
         },
         removeItemFormCart: (state, action) => {
-            const cart = state.filter((w: any) => w !== action.payload);
+            const cart = state.filter((w: CartSliceState) => w.id !== action.payload);
             return cart;
         }
     }

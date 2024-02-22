@@ -10,6 +10,7 @@ import { User } from "models/user";
 import { FormButton } from "components/index";
 import { removeItemFormWishList, resetWishList, selectWishList } from "redux/slices/wishlListSlice";
 import { TitleHeader } from "components/TitleHeader"; 
+import { resetCart } from "redux/slices/cartSlice";
 
 export const ProfilScreen = () => {
 
@@ -18,7 +19,7 @@ export const ProfilScreen = () => {
     const [userEmail, setUserEmail] = useState("");
 
     const [user, setUser] = useState<User>({
-        cart: [],
+        cart: new Map(),
         firstname: "",
         id: "",
         lastname: "",
@@ -27,8 +28,9 @@ export const ProfilScreen = () => {
     })
 
     const handleSignOut = () => {
-        dispatch(setSignOut())
-        dispatch(resetWishList())
+        dispatch(setSignOut());
+        dispatch(resetWishList());
+        dispatch(resetCart());
     }
 
     const getUserInformations = async () => {

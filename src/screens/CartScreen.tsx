@@ -2,13 +2,15 @@ import { CartItem } from 'components/CartItem';
 import { Article, Articles } from 'models/articles';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useSelector } from 'react-redux';
-import { CartSliceState, selectCart } from 'redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { CartSliceState, resetCart, selectCart } from 'redux/slices/cartSlice';
 import { selectWishList } from 'redux/slices/wishlListSlice';
 import { getManyArticlesById } from 'src/api/articles';
 
 
 export const CartScreen = () => {
+
+  const dispatch = useDispatch();
 
   const reduxArticles: CartSliceState[] = useSelector(selectCart)
 
@@ -20,12 +22,33 @@ export const CartScreen = () => {
   useEffect(() => {
     setArticles([]);
 
-    console.log(reduxArticles)
-
     getManyArticlesById(reduxArticles.map( c => c.id)).then( r => {
       setArticles(r)
+
     })
   }, [reduxArticles])
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+
+    articles.forEach((item) => {
+      const cartItem = reduxArticles.find((cartItem) => cartItem.id === item.id);
+      if (cartItem) {
+        total += cartItem.quantity * item.defaultPrice; // Vous devez avoir une propriété 'price' dans votre modèle d'article
+      }
+    });
+
+    setTotalPrice(total);
+  };
+
+  const commandArticlesInCart = () => {
+    dispatch(resetCart())
+  }
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [articles]);
+
 
   return (
     <>
@@ -41,7 +64,7 @@ export const CartScreen = () => {
     </View>
           <View style={styles.bottomCheckout}>
           <Text style={styles.CheckoutTotal}>{totalPrice} €</Text>
-          <TouchableOpacity style={styles.checkoutButton}>
+          <TouchableOpacity style={styles.checkoutButton} onPress={commandArticlesInCart} >
               <Text style={styles.checkoutText}>Commander</Text>
           </TouchableOpacity>
         </View>

@@ -4,6 +4,8 @@ import { View, TouchableOpacity, Image, Text, StyleSheet } from "react-native"
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { storage } from "firebase";
+import { useDispatch } from "react-redux";
+import { removeItemFormCart } from "redux/slices/cartSlice";
 
 type Props = {
     item: Article
@@ -11,50 +13,61 @@ type Props = {
 
 export const CartItem = ({item}: Props) => {
 
-    const [quantity, setQuantity] = useState(1)
+  const dispatch = useDispatch();
 
-    // useState pour l'url de l'image 
-    const [imgUrl, setImgUrl] = useState("")
+  const [quantity, setQuantity] = useState(1)
 
-    const increaseQuantity = () => {
-        setQuantity(quantity+1);
-    };
-    
-    const decreaseQuantity = () => {
-        setQuantity(quantity-1)
-    };
+  // useState pour l'url de l'image 
+  const [imgUrl, setImgUrl] = useState("")
 
-    useEffect(() => {
-        storage.ref(item.image).getDownloadURL()
-            .then( r => {
-                console.log(r)
-                setImgUrl(r);
+  const increaseQuantity = () => {
+      setQuantity(quantity+1);
+  };
+  
+  const decreaseQuantity = () => {
+      setQuantity(quantity-1)
+  };
 
-            })
-    }, [])
+  useEffect(() => {
+      storage.ref(item.image).getDownloadURL()
+          .then( r => {
+              console.log(r)
+              setImgUrl(r);
 
-    return (
-        <View key={item.id} style={styles.cartItem}>
-            <Image source={{ uri: imgUrl != "" ? imgUrl : undefined }} style={styles.itemImage} />
-            <View style={styles.itemDetails}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={[styles.itemName, styles.itemCollection]}>{item.collection}</Text>
-            <View style={styles.containerItemPrice}>
-                <Text style={styles.itemPrice}>{item.defaultPrice * quantity} €</Text>
-            </View>
-            <View style={styles.itemQuantity}>
-                <TouchableOpacity onPress={decreaseQuantity}>
-                <AntDesign name="minuscircleo" size={24} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.quantityText}>{quantity}</Text>
-                <TouchableOpacity onPress={increaseQuantity}>
-                <AntDesign name="pluscircleo" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
-            <Ionicons style={styles.iconTrash} name="trash" size={24} color="black" />
-            </View>
-        </View>
-    )
+          })
+  }, [])
+
+  const removeItemFromCart = () => {
+    dispatch(removeItemFormCart(item.id))
+
+
+
+  }
+
+  return (
+      <View key={item.id} style={styles.cartItem}>
+          <Image source={{ uri: imgUrl != "" ? imgUrl : undefined }} style={styles.itemImage} />
+          <View style={styles.itemDetails}>
+          <Text style={styles.itemName}>{item.name}</Text>
+          <Text style={[styles.itemName, styles.itemCollection]}>{item.collection}</Text>
+          <View style={styles.containerItemPrice}>
+              <Text style={styles.itemPrice}>{item.defaultPrice * quantity} €</Text>
+          </View>
+          <View style={styles.itemQuantity}>
+              <TouchableOpacity onPress={decreaseQuantity}>
+              <AntDesign name="minuscircleo" size={24} color="black" />
+              </TouchableOpacity>
+              <Text style={styles.quantityText}>{quantity}</Text>
+              <TouchableOpacity onPress={increaseQuantity}>
+              <AntDesign name="pluscircleo" size={24} color="black" />
+              </TouchableOpacity>
+          </View>
+          <TouchableOpacity onPress={removeItemFromCart}  style={styles.iconTrash} >
+            <Ionicons name="trash" size={24} color="black" />
+          </TouchableOpacity>
+          </View>
+      </View>
+  )
 }
 
 const styles = StyleSheet.create({

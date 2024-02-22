@@ -62,7 +62,7 @@ export const CardArticle = ({article}: Props) => {
 
       
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('ProductDetail')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProductDetail', { articleId: article.id })}>
 
             <View style={styles.articleItem}>
 
@@ -79,19 +79,7 @@ export const CardArticle = ({article}: Props) => {
                         
                     </View>
 
-                    {/* <CheckBox
-                            containerStyle={{
-                                margin: 5,
-                                padding: 0
-                            }}
-                            size={18}
-                            checked={true}
-                            iconType="ionicon"
-                            checkedIcon="cart"
-                            uncheckedIcon="cart-outline"
-                            checkedColor="black"
-                            onPress={toggleAddRemoveFromWishlist}
-                        /> */}
+                    
 
                 
 
