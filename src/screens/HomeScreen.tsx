@@ -10,19 +10,17 @@ import { getAllArticles } from "src/api/articles";
 import { getUserDocumentByUid } from "src/api/users";
 import firebase from "firebase/compat";
 import { ViewWrapper } from "components/ViewWrapper";
+import { addItemToCart, loadCartList } from "redux/slices/cartSlice";
 
 export const HomeScreen = () => {
 
     const dispatch = useDispatch();
 
-    const [image, setImage] = useState<string>("");
     const [firstname, setFirstname] = useState("")
     
     const [articles, setArticles] = useState<Articles>([])
 
     const doAsyncLoading = async () => {
-
-
 
         // récupérer l'utilisateur actuel
         if(auth.currentUser?.uid){
@@ -30,7 +28,8 @@ export const HomeScreen = () => {
             // garder le firstname de l'utilisateur actuellement connecté
             setFirstname(user.firstname)
             // charger la wishlist dans le reducer
-            dispatch(loadWishesList(user.wishes))
+            dispatch(loadWishesList(user.wishes));
+            dispatch(loadCartList(user.cart))
         }
 
         // récupérer les articles

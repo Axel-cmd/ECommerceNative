@@ -1,77 +1,48 @@
-import React, { useState } from 'react';
+import { CartItem } from 'components/CartItem';
+import { Article, Articles } from 'models/articles';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+import { CartSliceState, selectCart } from 'redux/slices/cartSlice';
+import { selectWishList } from 'redux/slices/wishlListSlice';
+import { getManyArticlesById } from 'src/api/articles';
+
 
 export const CartScreen = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: '1',
-      name: 'Article 1',
-      collection: 'Collection 1',
-      price: '20 €',
-      quantity: 2,
-      image:
-        'https://cdn.laredoute.com/products/a/b/7/ab75e59431ee2824c424f08cd03700dd.jpg?width=1200&dpr=1',
-    },
-    {
-        id: '2',
-        name: 'Article 1',
-        collection: 'Collection 1',
-        price: '20 €',
-        quantity: 2,
-        image:
-          'https://cdn.laredoute.com/products/a/b/7/ab75e59431ee2824c424f08cd03700dd.jpg?width=1200&dpr=1',
-      },
-  ]);
 
-  const increaseQuantity = (itemId: string) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item))
-    );
-  };
+  const reduxArticles: CartSliceState[] = useSelector(selectCart)
 
-  const decreaseQuantity = (itemId: string) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
-      )
-    );
-  };
+  const [articles, setArticles] = useState<Articles>([])
+
+  const [totalPrice, setTotalPrice] = useState<number>(0)
+
+  // récupération des articles à chaque fois que la valeur du redux change
+  useEffect(() => {
+    setArticles([]);
+
+    console.log(reduxArticles)
+
+    getManyArticlesById(reduxArticles.map( c => c.id)).then( r => {
+      setArticles(r)
+    })
+  }, [reduxArticles])
 
   return (
     <>
     
     <View style={styles.container}>
       <ScrollView>
-        {cartItems.map((item) => (
-          <View key={item.id} style={styles.cartItem}>
-            <Image source={{ uri: item.image }} style={styles.itemImage} />
-            <View style={styles.itemDetails}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemName}>{item.collection}</Text>
-              <View style={styles.containerItemPrice}>
-                <Text style={styles.itemPrice}>{item.price}</Text>
-              </View>
-              <View style={styles.itemQuantity}>
-                <TouchableOpacity onPress={() => decreaseQuantity(item.id)}>
-                  <AntDesign name="minuscircleo" size={24} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.quantityText}>{item.quantity}</Text>
-                <TouchableOpacity onPress={() => increaseQuantity(item.id)}>
-                  <AntDesign name="pluscircleo" size={24} color="black" />
-                </TouchableOpacity>
-              </View>
-              <Ionicons style={styles.iconTrash} name="trash" size={24} color="black" />
-            </View>
-          </View>
+
+        {articles.map((item, index) => (
+          <CartItem key={index} item={item} />
         ))}
+
       </ScrollView>
     </View>
           <View style={styles.bottomCheckout}>
-          <Text style={styles.CheckoutTotal}>300</Text>
+          <Text style={styles.CheckoutTotal}>{totalPrice} €</Text>
           <TouchableOpacity style={styles.checkoutButton}>
-              <Text style={styles.checkoutText}>Payement</Text>
+              <Text style={styles.checkoutText}>Commander</Text>
           </TouchableOpacity>
         </View>
     </>

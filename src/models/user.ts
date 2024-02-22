@@ -2,7 +2,7 @@
 interface CommonUserModel {
     firstname: string;
     lastname: string;
-    cart: string[];
+    cart: Map<string, number>;
     wishes: string[];
 }
 

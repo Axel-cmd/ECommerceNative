@@ -6,7 +6,6 @@ import { FormButton } from "components/buttons/FormButton";
 import { auth } from "firebase";
 import { useDispatch } from "react-redux";
 import { setSignIn } from "redux/slices";
-import { loadWishesFromFirestore } from "redux/slices/wishlListSlice";
 
 export const LoginForm = () => {
 

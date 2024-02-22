@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: string[] = []
+export interface CartSliceState {
+    id: string, quantity: number
+}
+
+const initialState: CartSliceState[] = []
 
 const cartSlice = createSlice({
     name: "cart",
@@ -10,10 +14,18 @@ const cartSlice = createSlice({
             return initialState;
         },
         loadCartList: (state, action) => {
-            state.push(...action.payload)
+            Object.entries(action.payload as Map<string, number>).forEach( ([id, quantity]) => {
+                state.push({
+                    id,
+                    quantity
+                })
+            })
         },
         addItemToCart: (state, action) => {
-            state.push(action.payload)
+            state.push({
+                id: action.payload.id,
+                quantity: action.payload.quantity
+            })
         },
         removeItemFormCart: (state, action) => {
             const cart = state.filter((w: any) => w !== action.payload);
