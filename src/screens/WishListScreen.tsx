@@ -7,9 +7,9 @@ import { TitleText } from 'components/TitleText';
 import { CardArticle } from 'components/CardArticle';
 import { Articles } from 'models/articles';
 import { TitleHeader } from "components/TitleHeader";
+import { ViewWrapper } from 'components/ViewWrapper';
 
 export const WishListScreen = () => {
-  const dispatch = useDispatch();
   const userWishList: string[] = useSelector(selectWishList);
   const [wishList, setWishList] = useState<Articles>([]);
 
@@ -31,7 +31,7 @@ export const WishListScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ViewWrapper containerStyle={styles.container}>
       <TitleHeader label="Ma liste d'envie" />
       {/* Divise la liste d'articles en paires et map chaque paire dans une rangée */}
       {splitArrayIntoPairs(wishList, 2).map((pair, index) => (
@@ -42,15 +42,14 @@ export const WishListScreen = () => {
           ))}
         </View>
       ))}
-    </ScrollView>
+    </ViewWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    padding: 0,
     flexGrow: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 20,
     backgroundColor: '#fff',
   },
   row: {

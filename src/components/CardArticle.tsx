@@ -49,14 +49,13 @@ export const CardArticle = ({article}: Props) => {
     }
 
 
-
+    /**
+     * Récupérer l'image lors de la création du composant
+     */
     useEffect(() => {
-
         storage.ref(article.image).getDownloadURL()
             .then( r => {
-                console.log(r)
                 setImgUrl(r);
-
             })
     }, [])
 
@@ -64,11 +63,42 @@ export const CardArticle = ({article}: Props) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('ProductDetail')}>
 
-            <View style={styles.articleItem}>
+            <Image
+                source={ { uri : imgUrl != '' ? imgUrl : undefined }} 
+                style={styles.image}
+            />
+                <View style={styles.articleText}>
+                    <Text style={styles.collection}>{article.collection}</Text>
+                    <Text style={styles.name}>{article.name}</Text> 
+                    <Text style={styles.price}>{article.defaultPrice} €</Text>
+                    
+                </View>
 
-                <Image
-                    source={ { uri : imgUrl }} 
-                    style={styles.image}
+                {/* <CheckBox
+                        containerStyle={{
+                            margin: 5,
+                            padding: 0
+                        }}
+                        size={18}
+                        checked={true}
+                        iconType="ionicon"
+                        checkedIcon="cart"
+                        uncheckedIcon="cart-outline"
+                        checkedColor="black"
+                        onPress={toggleAddRemoveFromWishlist}
+                    /> */}
+
+            
+
+            <View style={styles.heartContainer} >
+                <CheckBox
+                    size={18}
+                    containerStyle={styles.heart}
+                    checked={userWishList.includes(article.id)}
+                    checkedIcon="heart"
+                    uncheckedIcon="heart-o"
+                    checkedColor="red"
+                    onPress={toggleAddRemoveFromWishlist}
                 />
 
 
