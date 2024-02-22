@@ -8,7 +8,7 @@ import { auth } from "firebase";
 import { getUserDocumentByUid } from "src/api/users";
 import { User } from "models/user";
 import { FormButton } from "components/index";
-import { removeItemFormWishList, selectWishList } from "redux/slices/wishlListSlice";
+import { removeItemFormWishList, resetWishList, selectWishList } from "redux/slices/wishlListSlice";
 import { TitleHeader } from "components/TitleHeader"; 
 
 export const ProfilScreen = () => {
@@ -28,6 +28,7 @@ export const ProfilScreen = () => {
 
     const handleSignOut = () => {
         dispatch(setSignOut())
+        dispatch(resetWishList())
     }
 
     const getUserInformations = async () => {
