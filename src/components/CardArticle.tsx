@@ -1,7 +1,8 @@
+import { useNavigation } from "@react-navigation/native";
 import { storage } from "firebase";
 import { Article } from "models/articles";
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +14,8 @@ type Props = {
 }
 
 export const CardArticle = ({article}: Props) => {
+
+    const navigation = useNavigation();
     const dispatch = useDispatch();
 
     // useState pour l'url de l'image 
@@ -59,53 +62,57 @@ export const CardArticle = ({article}: Props) => {
 
       
     return (
-        <View style={styles.articleItem}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProductDetail')}>
 
-            <Image
-                source={ { uri : imgUrl }} 
-                style={styles.image}
-            />
+            <View style={styles.articleItem}>
 
-
-                <View style={styles.articleText}>
-                    <Text style={styles.collection}>{article.collection}</Text>
-                    <Text style={styles.name}>{article.name}</Text> 
-                    <Text style={styles.price}>{article.defaultPrice} €</Text>
-                    
-                </View>
-
-                {/* <CheckBox
-                        containerStyle={{
-                            margin: 5,
-                            padding: 0
-                        }}
-                        size={18}
-                        checked={true}
-                        iconType="ionicon"
-                        checkedIcon="cart"
-                        uncheckedIcon="cart-outline"
-                        checkedColor="black"
-                        onPress={toggleAddRemoveFromWishlist}
-                    /> */}
-
-            
-
-            <View style={styles.heartContainer} >
-                <CheckBox
-                    size={18}
-                    containerStyle={styles.heart}
-                    checked={userWishList.includes(article.id)}
-                    checkedIcon="heart"
-                    uncheckedIcon="heart-o"
-                    checkedColor="red"
-                    onPress={toggleAddRemoveFromWishlist}
+                <Image
+                    source={ { uri : imgUrl }} 
+                    style={styles.image}
                 />
 
+
+                    <View style={styles.articleText}>
+                        <Text style={styles.collection}>{article.collection}</Text>
+                        <Text style={styles.name}>{article.name}</Text> 
+                        <Text style={styles.price}>{article.defaultPrice} €</Text>
+                        
+                    </View>
+
+                    {/* <CheckBox
+                            containerStyle={{
+                                margin: 5,
+                                padding: 0
+                            }}
+                            size={18}
+                            checked={true}
+                            iconType="ionicon"
+                            checkedIcon="cart"
+                            uncheckedIcon="cart-outline"
+                            checkedColor="black"
+                            onPress={toggleAddRemoveFromWishlist}
+                        /> */}
+
+                
+
+                <View style={styles.heartContainer} >
+                    <CheckBox
+                        size={18}
+                        containerStyle={styles.heart}
+                        checked={userWishList.includes(article.id)}
+                        checkedIcon="heart"
+                        uncheckedIcon="heart-o"
+                        checkedColor="red"
+                        onPress={toggleAddRemoveFromWishlist}
+                    />
+
+                </View>
+
+                
+
             </View>
+        </TouchableOpacity>
 
-            
-
-        </View>
     )
 }
 
