@@ -46,14 +46,13 @@ export const CardArticle = ({article}: Props) => {
     }
 
 
-
+    /**
+     * Récupérer l'image lors de la création du composant
+     */
     useEffect(() => {
-
         storage.ref(article.image).getDownloadURL()
             .then( r => {
-                console.log(r)
                 setImgUrl(r);
-
             })
     }, [])
 
@@ -62,11 +61,9 @@ export const CardArticle = ({article}: Props) => {
         <View style={styles.articleItem}>
 
             <Image
-                source={ { uri : imgUrl }} 
+                source={ { uri : imgUrl != '' ? imgUrl : undefined }} 
                 style={styles.image}
             />
-
-
                 <View style={styles.articleText}>
                     <Text style={styles.collection}>{article.collection}</Text>
                     <Text style={styles.name}>{article.name}</Text> 

@@ -6,6 +6,9 @@ const wishListSlice = createSlice({
     name: "wishList",
     initialState,
     reducers: {
+        resetWishList: () => {
+            return initialState;
+        },
         loadWishesList: (state, action) => {
             state.push(...action.payload)
         },
@@ -19,7 +22,7 @@ const wishListSlice = createSlice({
     }
 })
 
-export const { loadWishesList ,addItemToWishList, removeItemFormWishList } = wishListSlice.actions;
+export const { loadWishesList ,addItemToWishList, removeItemFormWishList, resetWishList } = wishListSlice.actions;
 
 export const selectWishList = (state: any) => state.wishList;
 
