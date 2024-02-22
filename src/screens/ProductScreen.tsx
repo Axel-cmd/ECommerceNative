@@ -4,10 +4,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import { QuantityControl } from 'components/QuantityControl';
 import { Article, Articles } from 'models/articles';
 import { getManyArticlesById } from 'src/api/articles';
-import { storage } from 'firebase';
+import { auth, storage } from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartSliceState, addItemToCart, selectCart } from 'redux/slices/cartSlice';
-import { updateUserDocument } from 'src/api/users';
+import { getUserDocumentByUid, updateUserDocument } from 'src/api/users';
 
 type Props = {
   route: any
@@ -43,13 +43,23 @@ export const ProductScreen = ({route}: Props) => {
 
   }, [])
 
-  const addToCart = () => {
-    if( article != undefined){
+  const addToCart = async () => {
+    if( article != undefined && auth.currentUser?.uid){
+
+      let user = await getUserDocumentByUid(auth.currentUser.uid);
+
+      const updatedCart = {
+        ...user.cart,
+        //@ts-ignore
+        [article.id]: (user.cart[article.id] || 0) + quantity,
+      };
 
       dispatch(addItemToCart({
         id: article.id,
         quantity: quantity
       }))
+
+      updateUserDocument({cart: updatedCart})
 
     }
   }

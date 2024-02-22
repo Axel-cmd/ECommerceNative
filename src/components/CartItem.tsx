@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react"
 import { View, TouchableOpacity, Image, Text, StyleSheet } from "react-native"
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { storage } from "firebase";
-import { useDispatch } from "react-redux";
-import { removeItemFormCart } from "redux/slices/cartSlice";
+import { auth, storage } from "firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { removeItemFormCart, selectCart } from "redux/slices/cartSlice";
+import { getUserDocumentByUid, updateUserDocument } from "src/api/users";
 
 type Props = {
     item: Article
 }
 
 export const CartItem = ({item}: Props) => {
+
+  const cartList = useSelector(selectCart)
 
   const dispatch = useDispatch();
 
@@ -37,9 +40,23 @@ export const CartItem = ({item}: Props) => {
           })
   }, [])
 
-  const removeItemFromCart = () => {
+  const removeItemFromCart = async () => {
     dispatch(removeItemFormCart(item.id))
 
+    if(auth.currentUser?.uid) {
+      let user = await getUserDocumentByUid(auth.currentUser?.uid)
+
+
+      const updatedCart = {
+        ...user.cart
+      }
+
+      //@ts-ignore
+      delete updatedCart[item.id]
+
+      updateUserDocument({ cart: updatedCart})
+
+    }
 
 
   }
